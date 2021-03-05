@@ -1,0 +1,10 @@
+<h2>All Customers</h2>
+<form action="/customers" method="GET"> 
+    <label>Search</label>
+    <input type="text" name="last_name" value="<%= searchFor.last_name %>" placeholder="Last name">
+    <button type="submit">Search</button>
+</form>
+<br>
+<% customers.forEach(customer => { %>
+    <a href="#"><%= customer.first_name + " " + customer.last_name %> </a> <br>
+<% }) %>
