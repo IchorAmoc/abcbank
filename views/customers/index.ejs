@@ -6,5 +6,13 @@
 </form>
 <br>
 <% customers.forEach(customer => { %>
-    <a href="#"><%= customer.first_name + " " + customer.last_name %> </a> <br>
+    <div><h3><%= customer.first_name + " " + customer.last_name %></h3>
+        <h4>Accounts:</h4>
+    <ul><% accounts.forEach(account => { %>
+        <li><%= account.account_name + " | Account number: " + account.account_number %></li>
+    <% }) %></ul>
+    <a href="/customers/<%= customer.personal_number %>">View Account</a> 
+    <a href="/customers/<%= customer.id %>/edit">Edit Account</a> 
+    <%- include('../partials/deleteForm', { url: `/customers/${ customer.id }` }) %> <br> <br>
+    </div>
 <% }) %>
