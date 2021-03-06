@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Customer = require('../models/customer');
-const Account = require('../models/account');
 
 // All custommers route
 router.get('/', async (req, res) => {
@@ -12,10 +11,8 @@ router.get('/', async (req, res) => {
     }
     try {
         const customers = await Customer.find(searchFor);
-        const accounts = await Account.find(customers.account_number);
         res.render('customers/index', {
             customers: customers,
-            accounts: accounts,
             searchFor: req.query
         });
     } catch {
@@ -30,24 +27,21 @@ router.get('/new', async (req, res) => {
 
 // Create custommer route (Create, does not render anything)
 router.post('/', async (req, res) => {
-    let persNr = req.body.personal_number;
-    let customer = {};
 
-    if (persNr != Customer.find({ personal_number: persNr })) {
-        customer = new Customer({
+       const customer = new Customer({
             personal_number: req.body.personal_number,
-            // account_number: Math.floor(10000000000 + Math.random() * 90000000000),
+            account_number: Math.floor(10000000000 + Math.random() * 90000000000),
+            account_name: req.body.account_name,
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             dob: req.body.personal_number.substring(0, 6).trim(),
             city: req.body.city,
             created_date: new Date(Date.now)[0]
         })
-    }
 
     try {
         const newCustomer = await customer.save();
-        //res.redirect(`customer/${newCustomer.personal_number}`)
+        //res.redirect(`customer/${newCustomer.id}`)
         res.redirect('/customers');
 
     } catch {
@@ -61,7 +55,13 @@ router.post('/', async (req, res) => {
 
 // Show user
 router.get('/:id', async (req, res) => {
-    res.send('Show customer ' + req.params.id)
+    const customer = await Customer.findById(req.params.id);
+    try{
+        res.render('customers/show', { customer: customer })
+    } catch {
+        res.redirect('/');
+    }
+
 });
 
 // Edit customer (Form display)
@@ -114,6 +114,5 @@ router.delete('/:id', async (req, res) => {
         }
     }
 })
-
 
 module.exports = router;

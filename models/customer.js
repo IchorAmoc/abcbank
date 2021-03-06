@@ -1,13 +1,22 @@
 const mongoose = require('mongoose');
-const Account = require('./account');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const customerSchema = new mongoose.Schema({
 
     personal_number: {
         type: Number,
+        index: true,
+        unique: true,
         required: true
     },
-    accounts: [],
+    account_number: {
+        type: String,
+        required: true
+    },
+    account_name: {
+        type: String,
+        required: true
+    },
     first_name: {
         type: String,
         required: true
@@ -29,16 +38,5 @@ const customerSchema = new mongoose.Schema({
     }
 })
 
-customerSchema.pre('remove', function(next) {
-    Account.find({ owner_personal_number: this.personal_number}, (err, accounts) => {
-        if(err) {
-            next(err);
-        } else if(accounts.length > 0) {
-            next(new Error('This customer still has active accounts. Please remove accounts before customer.'))
-        } else {
-            next();
-        }
-    })
-})
-
+customerSchema.plugin(uniqueValidator);
 module.exports = mongoose.model('Customer', customerSchema);
