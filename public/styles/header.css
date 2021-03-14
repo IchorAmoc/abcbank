@@ -1,0 +1,39 @@
+.headerT{
+    color: var(--color-text-light);
+    text-decoration: none;
+    font-size: 3rem;
+    font-weight: var(--nav-title-font-weight);
+}
+
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .2rem;
+    background-color: var(--color-main-theme);
+    padding: 0 20px;
+    
+}
+
+.header ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.header li {
+    list-style: none;
+}
+
+.header li a {
+    text-decoration: none;
+    color: var(--color-text-light);
+    padding: 1rem;
+}
+
+.header li a:hover{
+    color: rgba(255, 255, 255, 0.8);
+    border-bottom: solid 1px  rgb(191, 229, 160);
+}
+

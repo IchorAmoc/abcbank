@@ -1,0 +1,17 @@
+.grid-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+label, input {
+    margin-top: 10px;
+    padding: 5px;
+    font-size: 20px;
+}
+label {
+    font-size: 24px;
+}
+
+input {
+    background-color: rgb(210, 218, 193);
+}

@@ -26,28 +26,20 @@ router.get('/new', async (req, res) => {
 
 // Create custommer route (Create, does not render anything)
 router.post('/', async (req, res) => {
-
-    let dob = req.body.personal_number.substring(0,6).trim();
-    let dd = dob.substring(0,2);
-    let mm = dob.substring(2,4);
-    let yy = dob.substring(4,6);
-    let newdob = new Date(yy, mm, dd);
-
-
        const customer = new Customer({
             personal_number: req.body.personal_number,
             account_number: Math.floor(10000000000 + Math.random() * 90000000000),
             account_name: req.body.account_name,
             first_name: req.body.first_name,
             last_name: req.body.last_name,
-            dob: newdob,
+            dob: req.body.personal_number.substring(0, 6).trim(),
             city: req.body.city,
             created_date: new Date(Date.now)[0]
         })
 
     try {
         const newCustomer = await customer.save();
-        res.redirect(`customers/${newCustomer.id}`)
+        res.redirect(`customer/${newCustomer.id}`)
         //res.redirect('/customers');
 
     } catch {
@@ -72,6 +64,9 @@ router.get('/:id', async (req, res) => {
 
 // Edit customer (Form display)
 router.get('/:id/edit', async (req, res) => {
+
+    //console.log(req.params.id + " - " + await Customer.findById(req.params.id))
+
     try {
         const customer = await Customer.findById(req.params.id);
         res.render('customers/edit', { customer: customer });
@@ -79,8 +74,6 @@ router.get('/:id/edit', async (req, res) => {
         res.redirect('/customers')
     }
 })
-
-
 
 // Edit customer (update to db)
 router.put('/:id', async (req, res) => {
@@ -103,38 +96,6 @@ router.put('/:id', async (req, res) => {
         }
     }
 })
-
-// Add account to customer (Form display)
-router.get('/:id/addAccount', async (req, res) => {
-    try {
-        const customer = await Customer.findById(req.params.id);
-        res.render('customers/addAccount', { customer: customer });
-    } catch {
-        res.redirect('/customers')
-    }
-})
-
-// Add account to customer (update to db)
-router.put('/:id', async (req, res) => {
-    let customer;
-    try {
-        customer = await Customer.findById(req.params.id);
-        customer.city = req.body.city;
-        await customer.save();
-        res.redirect(`/customers/${customer.id}`);
-    } catch {
-        if (customer == null) {
-            res.redirect('/');
-        } else {
-            res.render('customers/edit', {
-                customer: customer,
-                errorMessage: 'Error updating customer'
-            })
-        }
-    }
-})
-
-
 
 // Delete customer
 router.delete('/:id', async (req, res) => {

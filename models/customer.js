@@ -26,7 +26,7 @@ const customerSchema = new mongoose.Schema({
         required: true
     },
     dob: {
-        type: String
+        type: Date
     },
     city: {
         type: String,

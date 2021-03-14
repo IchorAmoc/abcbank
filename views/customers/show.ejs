@@ -1,12 +1,16 @@
 <div>
     <h2><%= customer.first_name + " " + customer.last_name %></h2>
     <hr>
-    <p>Date of birth: <%= customer.dob %> </p>
+    <p>Date of birth: <%= (customer.dob.getUTCDate() +1 ) + " / " + customer.dob.getUTCMonth() + " / " + customer.dob.getUTCFullYear(); %> </p>
     <p>City: <%= customer.city %> </p>
+    <p>Personal Number: <%= customer.personal_number %> </p>
     <p>Customer added: <%= customer.created_date.toDateString() %> </p>
     <hr>
     <h3>Account details</h3>
     <p><%= customer.account_name + " | " + customer.account_number %></p> <br>
-        <a href="/customers/<%= customer.id %>/edit">Edit Account</a> 
+    <div class="btn-row"> 
+        <a class="btn btn-primary" href="/customers/<%= customer.id %>/edit">Edit Account</a> 
+        <a class="btn btn-primary" href="/customers/<%= customer.id %>/addAcc">Add new Account</a> 
         <%- include('../partials/deleteForm', { url: `/customers/${ customer.id }` }) %>
+    </div>
 </div>

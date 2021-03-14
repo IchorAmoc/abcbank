@@ -1,18 +1,19 @@
 <h2>All Customers</h2>
 <form action="/customers" method="GET"> 
     <label>Search</label>
-    <input type="text" name="last_name" value="<%= searchFor.last_name %>" placeholder="Last name">
-    <button type="submit">Search</button>
+    <input type="text" name="personal_number" value="<%= searchFor.personal_number %>" pattern="\d{11}" placeholder="Personal Number">
+    <button class="btn btn-primary" type="submit">Search</button>
 </form>
 <br>
 <% customers.forEach(customer => { %>
-    <div>
+    <div class="account">
         <h3><%= customer.first_name + " " + customer.last_name %></h3> 
-        <p><%= customer.personal_number %></p>
-        <p><%= customer.id %></p>
         <p><%= customer.account_name + " | " + customer.account_number %></p>
-        <a href="/customers/<%= customer.id %>">View Account</a> 
-        <a href="/customers/<%= customer.id %>/edit">Edit Account</a> 
-        <%- include('../partials/deleteForm', { url: `/customers/${ customer.id }` }) %> <br> <br>
+
+        <div class="btn-row">
+            <a class="btn btn-primary" href="/customers/<%= customer.id %>">View Account</a> 
+            <a class="btn btn-primary" href="/customers/<%= customer.id %>/edit">Edit Account</a> 
+            <%- include('../partials/deleteForm', { url: `/customers/${ customer.id }` }) %> <br> <br>
+        </div>
     </div>
 <% }) %>
