@@ -37,10 +37,10 @@ router.post('/', async (req, res) => {
        const customer = new Customer({
             personal_number: req.body.personal_number,
             accounts: [
-            //    {
-            //    account_number: Math.floor(10000000000 + Math.random() * 90000000000),
-            //    account_name: req.body.account_name
-            //    }
+                {
+                account_number: Math.floor(10000000000 + Math.random() * 90000000000),
+                account_name: req.body.account_name
+                }
             ],
             first_name: req.body.first_name,
             last_name: req.body.last_name,
