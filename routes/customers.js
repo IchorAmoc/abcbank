@@ -10,6 +10,7 @@ router.get('/', async (req, res) => {
     }
     try {
         const customers = await Customer.find(searchFor);
+
         res.render('customers/index', {
             customers: customers,
             searchFor: req.query
@@ -19,11 +20,11 @@ router.get('/', async (req, res) => {
     }
 })
 
+        // CREATE // POST //
 // New customer route (Display form)
 router.get('/new', async (req, res) => {
     res.render('customers/new', { customer: new Customer() });
 })
-
 // Create custommer route (Create, does not render anything)
 router.post('/', async (req, res) => {
 
@@ -33,11 +34,14 @@ router.post('/', async (req, res) => {
     let yy = dob.substring(4,6);
     let newdob = new Date(yy, mm, dd);
 
-
        const customer = new Customer({
             personal_number: req.body.personal_number,
-            account_number: Math.floor(10000000000 + Math.random() * 90000000000),
-            account_name: req.body.account_name,
+            accounts: [
+            //    {
+            //    account_number: Math.floor(10000000000 + Math.random() * 90000000000),
+            //    account_name: req.body.account_name
+            //    }
+            ],
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             dob: newdob,
@@ -48,9 +52,9 @@ router.post('/', async (req, res) => {
     try {
         const newCustomer = await customer.save();
         res.redirect(`customers/${newCustomer.id}`)
-        //res.redirect('/customers');
 
     } catch {
+        // If customer personal number already exists, send error
         res.render('customers/new', {
             customer: customer,
             errorMessage: 'Error creating customer'
@@ -59,17 +63,19 @@ router.post('/', async (req, res) => {
     }
 })
 
-// Show user
+    // Show user //
 router.get('/:id', async (req, res) => {
     const customer = await Customer.findById(req.params.id);
+    const accounts = await customer.accounts;
     try{
-        res.render('customers/show', { customer: customer })
+        res.render('customers/show', { customer: customer, accounts: accounts })
     } catch {
         res.redirect('/');
     }
 
 });
 
+        // EDIT // PUT //
 // Edit customer (Form display)
 router.get('/:id/edit', async (req, res) => {
     try {
@@ -79,9 +85,6 @@ router.get('/:id/edit', async (req, res) => {
         res.redirect('/customers')
     }
 })
-
-
-
 // Edit customer (update to db)
 router.put('/:id', async (req, res) => {
     let customer;
@@ -104,31 +107,36 @@ router.put('/:id', async (req, res) => {
     }
 })
 
+        // ADD TO EXISTING // POST or PUT ? //
 // Add account to customer (Form display)
-router.get('/:id/addAccount', async (req, res) => {
+router.get('/:id/addAcc', async (req, res) => {
     try {
         const customer = await Customer.findById(req.params.id);
-        res.render('customers/addAccount', { customer: customer });
+        res.render('customers/addAcc', { customer: customer });
     } catch {
         res.redirect('/customers')
     }
 })
 
 // Add account to customer (update to db)
-router.put('/:id', async (req, res) => {
+router.post('/:id', async (req, res) => {
+    console.log('add account')
     let customer;
     try {
         customer = await Customer.findById(req.params.id);
-        customer.city = req.body.city;
+        customer.accounts.push({
+                account_number: Math.floor(10000000000 + Math.random() * 90000000000),
+                account_name: req.body.account_name
+            });
         await customer.save();
         res.redirect(`/customers/${customer.id}`);
     } catch {
         if (customer == null) {
             res.redirect('/');
         } else {
-            res.render('customers/edit', {
+            res.render('customers/addAcc', {
                 customer: customer,
-                errorMessage: 'Error updating customer'
+                errorMessage: 'Error adding account to customer'
             })
         }
     }

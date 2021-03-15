@@ -34,11 +34,11 @@
 }
 
 .btn-primary:hover {
-    background-color: rgb(51, 75, 51);
+    background-color: rgb(160, 170, 140);
     transition: ease-in-out 0.2s;
 }
 
 .del:hover {
-    background-color: rgb(163, 28, 28);
+    background-color: rgb(185, 70, 70);
     transition: ease-in-out 0.2s;
 }

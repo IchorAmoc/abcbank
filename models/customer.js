@@ -9,14 +9,16 @@ const customerSchema = new mongoose.Schema({
         unique: true,
         required: true
     },
-    account_number: {
+    accounts: [{
+        account_number: {
         type: String,
         required: true
-    },
-    account_name: {
-        type: String,
-        required: true
-    },
+        },
+        account_name: {
+            type: String,
+            required: true
+        }
+    }],
     first_name: {
         type: String,
         required: true

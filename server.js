@@ -11,6 +11,8 @@ const methodOverride = require('method-override');
 const indexR = require('./routes/index');
 const customerR = require('./routes/customers');
 
+
+
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.set('layout', 'layouts/layout');

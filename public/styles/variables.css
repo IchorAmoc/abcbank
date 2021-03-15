@@ -1,18 +1,13 @@
 :root {
     --bg-btn-danger: rgb(177, 112, 101);
-    --bg-btn-safe: rgb(165, 177, 101);
-    --color-main-theme: rgb(37, 39, 35);
-    --color-background: rgba(14, 15, 13, 0.98);
-    --color-text-light: rgb(214, 224, 197);
-    --color-text-dark: rgb(32, 34, 30);
-    --url: url('https://images.unsplash.com/photo-1431263154979-0982327fccbb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+    --bg-btn-safe: rgb(231, 215, 122);
+    --color-main-theme: rgba(0, 0, 0, 0.5);
+    --color-background: rgba(17, 17, 17, 0.98);
+    --color-text-light: rgb(255, 246, 254);
+    --color-text-dark: rgb(24, 22, 23);
+    --url: url('https://images.unsplash.com/photo-1523476602796-646439cea0bf?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1950&q=80');
 
-    --color-btn-border:  black;
-    --color-btn-danger-background: hsl(var(--color-danger-hue), 100%, 83%);
-    --color-btn-danger-text: black;
-    --color-btn-danger-background-dark: hsl(var(--color-danger-hue), 100%, 73%);
-    --color-btn-danger-text-dark: black;
+    --color-btn-border:  rgb(255, 255, 255);
 
     --nav-title-font-weight: bold;
-    --nav-link-font-weight: 300;
-} 
+}

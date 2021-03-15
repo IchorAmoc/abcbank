@@ -1,14 +1,17 @@
 <h2>All Customers</h2>
 <form action="/customers" method="GET"> 
     <label>Search</label>
-    <input type="text" name="personal_number" value="<%= searchFor.personal_number %>" pattern="\d{11}" placeholder="Personal Number">
-    <button class="btn btn-primary" type="submit">Search</button>
+    <input type="text" name="personal_number" class="searchInp" value="<%= searchFor.personal_number %>" pattern="\d{11}" placeholder="Personal Number">
+    <button class="btn btn-primary search" type="submit">Search</button>
 </form>
 <br>
 <% customers.forEach(customer => { %>
     <div class="account">
         <h3><%= customer.first_name + " " + customer.last_name %></h3> 
-        <p><%= customer.account_name + " | " + customer.account_number %></p>
+
+        <% customer.accounts.forEach( account => { %>
+         <p>  <%= account.account_name + " | " + account.account_number %></p>
+        <% }) %>
 
         <div class="btn-row">
             <a class="btn btn-primary" href="/customers/<%= customer.id %>">View Account</a> 
