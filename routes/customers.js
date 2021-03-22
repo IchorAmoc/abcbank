@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
 router.get('/new', async (req, res) => {
     res.render('customers/new', { customer: new Customer() });
 })
-// Create custommer route (Create, does not render anything)
+// Create custommer route (Add to db)
 router.post('/', async (req, res) => {
     let dob = req.body.personal_number.substring(0,6).trim();
     let dd = dob.substring(0,2);
