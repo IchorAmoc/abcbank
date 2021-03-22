@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
     let dd = dob.substring(0,2);
     let mm = dob.substring(2,4);
     let yy = dob.substring(4,6);
-    let newdob = new Date(yy, mm, dd, 10);
+    let newdob = new Date(yy, mm, dd);
 
        const customer = new Customer({
             personal_number: req.body.personal_number,
