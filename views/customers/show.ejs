@@ -3,17 +3,20 @@
     <hr>
     <p>Date of birth: <%= (customer.dob.getUTCDate() +1 ) + " / " + customer.dob.getUTCMonth() + " / " + customer.dob.getUTCFullYear(); %> </p>
     <p>City: <%= customer.city %> </p>
-    <p>Personal Number: <%= customer.personal_number %> </p>
     <p>Customer added: <%= customer.created_date.toDateString() %> </p>
     <hr>
     <h3>Account details</h3>
     <% accounts.forEach( account => { %> 
-        <p><%=account.account_name + " | " + account.account_number%></p>
+        <p><%= account.account_name + " | " + account.account_number %></p>
+        <div class="btn-mini">
+            <a class="btn btn-primary" href="/customers/<%= customer.id %>/editAcc/<%= account.id %>">Edit Account</a> 
+            <%- include('../partials/deleteAccount', { url: `/customers/del/${ customer.id }/${ account.id }` }) %>
+        </div> 
     <% }) %>
      <br>
     <div class="btn-row"> 
-        <a class="btn btn-primary" href="/customers/<%= customer.id %>/edit">Edit Account</a> 
+        <a class="btn btn-primary" href="/customers/<%= customer.id %>/edit">Edit Customer</a> 
         <a class="btn btn-primary" href="/customers/<%= customer.id %>/addAcc">Add new Account</a> 
-        <%- include('../partials/deleteForm', { url: `/customers/${ customer.id }` }) %>
+        <%- include('../partials/deleteForm', { url: `/customers/${ customer.id }` }) %> 
     </div>
 </div>

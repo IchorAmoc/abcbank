@@ -27,7 +27,6 @@ router.get('/new', async (req, res) => {
 })
 // Create custommer route (Create, does not render anything)
 router.post('/', async (req, res) => {
-
     let dob = req.body.personal_number.substring(0,6).trim();
     let dd = dob.substring(0,2);
     let mm = dob.substring(2,4);
@@ -55,6 +54,7 @@ router.post('/', async (req, res) => {
 
     } catch {
         // If customer personal number already exists, send error
+
         res.render('customers/new', {
             customer: customer,
             errorMessage: 'Error creating customer'
@@ -82,7 +82,7 @@ router.get('/:id/edit', async (req, res) => {
         const customer = await Customer.findById(req.params.id);
         res.render('customers/edit', { customer: customer });
     } catch {
-        res.redirect('/customers')
+        res.redirect('/customers/:id')
     }
 })
 // Edit customer (update to db)
@@ -117,10 +117,9 @@ router.get('/:id/addAcc', async (req, res) => {
         res.redirect('/customers')
     }
 })
-
 // Add account to customer (update to db)
 router.post('/:id', async (req, res) => {
-    console.log('add account')
+    console.log('Add account...')
     let customer;
     try {
         customer = await Customer.findById(req.params.id);
@@ -134,6 +133,7 @@ router.post('/:id', async (req, res) => {
         if (customer == null) {
             res.redirect('/');
         } else {
+            console.log('failed')
             res.render('customers/addAcc', {
                 customer: customer,
                 errorMessage: 'Error adding account to customer'
@@ -142,7 +142,47 @@ router.post('/:id', async (req, res) => {
     }
 })
 
+// Edit account (Form display)
+router.get('/:id/editAcc/:accid', async (req, res) => {
+    try {
+        const customer = await Customer.findById(req.params.id);
+        let account;
+        customer.accounts.forEach( acc => {
+            if(acc.id === req.params.accid){
+                account = acc;
+            }
+        })
+        res.render('customers/editAcc', { customer: customer, account: account });
+    } catch {
+        res.redirect('/customers/:id')
+    }
+})
 
+// Edit account -> Update to db
+router.put('/:id/:accid', async (req, res) => {
+    const customer = await Customer.findById(req.params.id);
+    try {
+        customer.accounts.forEach( acc => {
+            if(acc.id === req.params.accid){
+                console.log(acc.account_name);
+                console.log(req.body.account_name);
+                
+                acc.account_name = req.body.account_name;
+            }
+        })
+        await customer.save();
+        res.redirect(`/customers/${customer.id}`);
+    } catch {
+        if (customer == null) {
+            res.redirect('/');
+        } else {
+            res.render('customers/editAcc', {
+                customer: customer,
+                errorMessage: 'Error updating account'
+            })
+        }
+    }
+})
 
 // Delete customer
 router.delete('/:id', async (req, res) => {
@@ -151,6 +191,30 @@ router.delete('/:id', async (req, res) => {
         customer = await Customer.findById(req.params.id);
         await customer.remove();
         res.redirect('/customers');
+    } catch {
+        if(customer == null) {
+            res.redirect('/');
+        } else {
+        res.redirect(`/customers/${customer.id}`);
+        }
+    }
+})
+
+// Delete customer's account
+router.patch('/del/:id/:accid', async (req, res) => {
+    const startDate = Date.now();
+    let customer;
+    try {
+        customer = await Customer.findById(req.params.id);
+
+        customer.accounts = customer.accounts.filter( acc =>  acc.id !== req.params.accid ) 
+
+        await customer.save();
+        res.redirect(`/customers/${customer.id}`);
+        const endDate = Date.now();
+
+        console.log(startDate, endDate);
+
     } catch {
         if(customer == null) {
             res.redirect('/');

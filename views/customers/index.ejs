@@ -8,15 +8,13 @@
 <% customers.forEach(customer => { %>
     <div class="account">
         <h3><%= customer.first_name + " " + customer.last_name %></h3> 
-
         <% customer.accounts.forEach( account => { %>
          <p>  <%= account.account_name + " | " + account.account_number %></p>
         <% }) %>
-
-        <div class="btn-row">
-            <a class="btn btn-primary" href="/customers/<%= customer.id %>">View Account</a> 
-            <a class="btn btn-primary" href="/customers/<%= customer.id %>/edit">Edit Account</a> 
-            <%- include('../partials/deleteForm', { url: `/customers/${ customer.id }` }) %> <br> <br>
+        <div class="btn-row"> 
+            <a class="btn btn-primary" href="/customers/<%= customer.id %>">View Customer</a> 
+            <a class="btn btn-primary" href="/customers/<%= customer.id %>/edit">Edit Customer</a> 
+            <%- include('../partials/deleteForm', { url: `/customers/${ customer.id }` }) %>
         </div>
     </div>
 <% }) %>

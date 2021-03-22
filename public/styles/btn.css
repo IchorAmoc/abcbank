@@ -42,3 +42,15 @@
     background-color: rgb(185, 70, 70);
     transition: ease-in-out 0.2s;
 }
+
+
+.btn-mini a, .btn-mini form button {
+    padding: 3px;
+    margin-right: 5px;
+    font-size: 20px;
+}
+
+.btn-mini {
+    display: flex;
+    margin-bottom: 1rem;
+}

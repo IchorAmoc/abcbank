@@ -1,9 +1,9 @@
 <h2>Add account to customer</h2>
 <form action="/customers/<%= customer.id %>" method="POST">
     <%- include('_form_persNr.ejs') %>
-    <%- include('_form_account.ejs') %>
+    <%- include('_form_account_.ejs') %>
         <div class="btn-row"> 
-            <a class="btn btn-primary" href="/customers">Cancel</a>
+            <a class="btn btn-primary" href="/customers/<%= customer.id %>">Cancel</a>
             <button class="btn btn-primary" type="submit">Add</button>
         </div>
 </form>
