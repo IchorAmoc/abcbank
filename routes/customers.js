@@ -27,6 +27,7 @@ router.get('/new', async (req, res) => {
 })
 // Create custommer route (Add to db)
 router.post('/', async (req, res) => {
+    const startDate = Date.now();
     let dob = req.body.personal_number.substring(0,6).trim();
     let dd = dob.substring(0,2);
     let mm = dob.substring(2,4);
@@ -50,11 +51,12 @@ router.post('/', async (req, res) => {
 
     try {
         const newCustomer = await customer.save();
+        const endDate = Date.now();
+        console.log('Cloud Processing Latency: ' + (endDate - startDate) + 'ms');
         res.redirect(`customers/${newCustomer.id}`)
 
     } catch {
         // If customer personal number already exists, send error
-
         res.render('customers/new', {
             customer: customer,
             errorMessage: 'Error creating customer'
@@ -87,6 +89,7 @@ router.get('/:id/edit', async (req, res) => {
 })
 // Edit customer (update to db)
 router.put('/:id', async (req, res) => {
+    const startDate = Date.now();
     let customer;
     try {
         customer = await Customer.findById(req.params.id);
@@ -94,6 +97,8 @@ router.put('/:id', async (req, res) => {
         customer.last_name = req.body.last_name;
         customer.city = req.body.city;
         await customer.save();
+        const endDate = Date.now();
+        console.log('Cloud Processing Latency: ' + (endDate - startDate) + 'ms');
         res.redirect(`/customers/${customer.id}`);
     } catch {
         if (customer == null) {
@@ -119,6 +124,7 @@ router.get('/:id/addAcc', async (req, res) => {
 })
 // Add account to customer (update to db)
 router.post('/:id', async (req, res) => {
+    const startDate = Date.now();
     console.log('Add account...')
     let customer;
     try {
@@ -128,6 +134,8 @@ router.post('/:id', async (req, res) => {
                 account_name: req.body.account_name
             });
         await customer.save();
+        const endDate = Date.now();
+        console.log('Cloud Processing Latency: ' + (endDate - startDate) + 'ms');
         res.redirect(`/customers/${customer.id}`);
     } catch {
         if (customer == null) {
@@ -157,9 +165,9 @@ router.get('/:id/editAcc/:accid', async (req, res) => {
         res.redirect('/customers/:id')
     }
 })
-
 // Edit account -> Update to db
 router.put('/:id/:accid', async (req, res) => {
+    const startDate = Date.now();
     const customer = await Customer.findById(req.params.id);
     try {
         customer.accounts.forEach( acc => {
@@ -171,7 +179,10 @@ router.put('/:id/:accid', async (req, res) => {
             }
         })
         await customer.save();
-        res.redirect(`/customers/${customer.id}`);
+        const endDate = Date.now();
+        console.log('Cloud Processing Latency: ' + (endDate - startDate) + 'ms');
+        res.redirect(`/customers/${customer.id}`);        
+
     } catch {
         if (customer == null) {
             res.redirect('/');
@@ -186,10 +197,13 @@ router.put('/:id/:accid', async (req, res) => {
 
 // Delete customer
 router.delete('/:id', async (req, res) => {
+    const startDate = Date.now();
     let customer;
     try {
         customer = await Customer.findById(req.params.id);
         await customer.remove();
+        const endDate = Date.now();
+        console.log('Cloud Processing Latency: ' + (endDate - startDate) + 'ms');
         res.redirect('/customers');
     } catch {
         if(customer == null) {
@@ -209,11 +223,11 @@ router.patch('/del/:id/:accid', async (req, res) => {
 
         customer.accounts = customer.accounts.filter( acc =>  acc.id !== req.params.accid ) 
 
-        await customer.save();
-        res.redirect(`/customers/${customer.id}`);
+        await customer.save();        
         const endDate = Date.now();
+        console.log('Cloud Processing Latency: ' + (endDate - startDate) + 'ms');
+        res.redirect(`/customers/${customer.id}`);
 
-        console.log(startDate, endDate);
 
     } catch {
         if(customer == null) {
