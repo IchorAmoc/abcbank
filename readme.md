@@ -31,9 +31,7 @@ or copy paste this link: https://abcbankvilde.herokuapp.com/
     * Done.
     * Again, [CLICK ME](https://abcbankvilde.herokuapp.com/) to go to the heroku app
 * **Additional task –5 points**
-    * Nope. It is painfully difficult to find anything about this.
-    * Would be nice to *actually* learn something practical in the lectures.
-
+    * A simple latency calculation is console logged. 
 ## Notes
 
 * This is our understanding of the assignment.
