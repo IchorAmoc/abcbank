@@ -1,11 +1,14 @@
-# Assignment 1 Cloud Tech README
+# **Assignment 1 Cloud Tech README**
+#### Group Quokka
+---
 
 ## Heroku link
 
-[ABC Heroku app link CLICK ME](https://abcbankvilde.herokuapp.com/)
+[ABC Heroku app link CLICK ME](https://abcbankquokka.herokuapp.com/)
 
-or copy paste this link: https://abcbankvilde.herokuapp.com/
+or copy paste this link: https://abcbankquokka.herokuapp.com/
 
+---
 ## Marks
 
 * **Client server design and validation –5 points**
@@ -29,11 +32,11 @@ or copy paste this link: https://abcbankvilde.herokuapp.com/
     * Insert, delete, update etc. should be working as intended.
 * **Deployed to Heroku server –2 points**
     * Done.
-    * Again, [CLICK ME](https://abcbankvilde.herokuapp.com/) to go to the heroku app
+    * Again, [CLICK ME](https://abcbankquokka.herokuapp.com/) to go to the heroku app
 * **Additional task –5 points**
     * A simple latency calculation is console logged. 
+---
 ## Notes
-
 * This is our understanding of the assignment.
 
 
