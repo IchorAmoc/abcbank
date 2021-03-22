@@ -1,7 +1,7 @@
 <div>
     <h2><%= customer.first_name + " " + customer.last_name %></h2>
     <hr>
-    <p>Date of birth: <%= (customer.dob.getUTCDate() +1 ) + " / " + customer.dob.getUTCMonth() + " / " + customer.dob.getUTCFullYear(); %> </p>
+    <p>Date of birth: <%= ( customer.dob.getUTCDate() +1 ) + " / " + customer.dob.getUTCMonth() + " / " + customer.dob.getUTCFullYear(); %> </p>
     <p>City: <%= customer.city %> </p>
     <p>Customer added: <%= customer.created_date.toDateString() %> </p>
     <hr>
