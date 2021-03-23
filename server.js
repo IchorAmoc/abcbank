@@ -6,7 +6,8 @@ const express = require('express');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
 const methodOverride = require('method-override');
-const bodyParser = require('body-parser');
+const morgan = require('morgan');
+
 
 const indexR = require('./routes/index');
 const customerR = require('./routes/customers');
@@ -17,7 +18,16 @@ app.set('layout', 'layouts/layout');
 app.use(expressLayouts);
 app.use(methodOverride('_method'))
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }));
+app.use(express.urlencoded({ extended: false }));
+app.use(morgan((tokens, req, res) => {
+    if (tokens.url(req, res).startsWith('/customers')) {
+        return [
+            'Latency for END-TO-END | ',
+            tokens['response-time'](req, res), 'ms',
+        ].join(' ')
+    }
+}));
+
 
 const mongoose = require('mongoose');
 mongoose.connect(process.env.DATABASE_URL, {

@@ -54,7 +54,7 @@ router.post('/', async (req, res) => {
     try {
         const newCustomer = await customer.save();
         const endDate = Date.now();
-        console.log('Cloud Processing Latency: ' + (endDate - startDate) + 'ms');
+        console.log('Latency for CLOUD PROCESSING |  ' + (endDate - startDate) + 'ms');
         res.redirect(`customers/${newCustomer.id}`)
 
     } catch {
@@ -100,7 +100,7 @@ router.put('/:id', async (req, res) => {
         customer.city = req.body.city;
         await customer.save();
         const endDate = Date.now();
-        console.log('Cloud Processing Latency: ' + (endDate - startDate) + 'ms');
+        console.log('Latency for CLOUD PROCESSING |  ' + (endDate - startDate) + 'ms');
         res.redirect(`/customers/${customer.id}`);
     } catch {
         if (customer == null) {
@@ -137,7 +137,7 @@ router.post('/:id', async (req, res) => {
             });
         await customer.save();
         const endDate = Date.now();
-        console.log('Cloud Processing Latency: ' + (endDate - startDate) + 'ms');
+        console.log('Latency for CLOUD PROCESSING |  ' + (endDate - startDate) + 'ms');
         res.redirect(`/customers/${customer.id}`);
     } catch {
         if (customer == null) {
@@ -182,7 +182,7 @@ router.put('/:id/:accid', async (req, res) => {
         })
         await customer.save();
         const endDate = Date.now();
-        console.log('Cloud Processing Latency: ' + (endDate - startDate) + 'ms');
+        console.log('Latency for CLOUD PROCESSING |  ' + (endDate - startDate) + 'ms');
         res.redirect(`/customers/${customer.id}`);        
 
     } catch {
@@ -205,7 +205,7 @@ router.delete('/:id', async (req, res) => {
         customer = await Customer.findById(req.params.id);
         await customer.remove();
         const endDate = Date.now();
-        console.log('Cloud Processing Latency: ' + (endDate - startDate) + 'ms');
+        console.log('Latency for CLOUD PROCESSING |  ' + (endDate - startDate) + 'ms');
         res.redirect('/customers');
     } catch {
         if(customer == null) {
@@ -227,7 +227,7 @@ router.patch('/del/:id/:accid', async (req, res) => {
 
         await customer.save();        
         const endDate = Date.now();
-        console.log('Cloud Processing Latency: ' + (endDate - startDate) + 'ms');
+        console.log('Latency for CLOUD PROCESSING | ' + (endDate - startDate) + 'ms');
         res.redirect(`/customers/${customer.id}`);
 
 

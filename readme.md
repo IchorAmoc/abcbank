@@ -7,6 +7,20 @@
 [ABC Heroku app link CLICK ME](https://abcbankquokka.herokuapp.com/)
 
 or copy paste this link: https://abcbankquokka.herokuapp.com/
+---
+## Github repo
+[Github repo link CLICK ME](https://github.com/IchorAmoc/abcbank)
+
+or copy paste this link: https://github.com/IchorAmoc/abcbank
+
+### To set up local:
+1. npm install
+2. make a .env file in the outermost folder and write this:
+
+```DATABASE_URL = mongodb://localhost/abcbank```
+
+3. npm run devStart
+4. go to http://localhost:3000/
 
 ---
 ## Marks
@@ -35,6 +49,7 @@ or copy paste this link: https://abcbankquokka.herokuapp.com/
     * Again, [CLICK ME](https://abcbankquokka.herokuapp.com/) to go to the heroku app
 * **Additional task –5 points**
     * A simple latency calculation is console logged. 
+    * Morgan (package) -> Console logs end to end latency.
 ---
 ## Notes
 * This is our understanding of the assignment.
