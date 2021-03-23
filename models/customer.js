@@ -4,7 +4,7 @@ const uniqueValidator = require('mongoose-unique-validator');
 const customerSchema = new mongoose.Schema({
 
     personal_number: {
-        type: Number,
+        type: String,
         index: true,
         unique: true,
         required: true
